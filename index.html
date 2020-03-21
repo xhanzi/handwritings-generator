@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI训练数据生成器</title>
+    <style type="text/css">
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    #canvas {
+        display: none;
+        width: 500px;
+        height: 500px;
+        border: 1px solid #000;
+    }
+    #canvas .t {
+	position: relative;
+	border: 1px dotted #CCC;
+	width: 250px;
+	height: 250px;
+    }
+    #canvas .b {
+    }
+    </style>
+</head>
+<body>
+    <!-- 全屏画布 -->
+    <canvas id="canvas">
+        <span class="t"></span>
+        <span class="b"></span>
+    </canvas>
+    <script type="text/javascript">
+    //画板对象
+    var drawBoard = {
+        //定义全局变量
+        globalObject: {
+            CTX: null,
+            COLOR: '#000',
+            LINE: 5
+        },
+
+        //初始化
+        init: function () {
+            //显示画板
+            this.showBoard();
+            //默认画笔功能
+            this.draw();
+        },
+
+        //显示画板
+        showBoard: function () {
+            var that = this;
+            var canvas = document.getElementById('canvas');
+            drawBoard.globalObject.CTX = canvas.getContext('2d');
+            canvas.style.display = 'block';
+            canvas.width = 500;
+            canvas.height = 500;
+        },
+
+        draw: function () {
+            var that = this;
+            document.onmousedown = function (ev) {
+                var ev = ev || event;
+                var sx = ev.clientX;
+                var sy = ev.clientY;
+                // 每30ms取一个点
+                var onOff = true;
+                document.onmousemove = function (ev) {
+                    if (!onOff) return;
+                    onOff = false;
+                    setTimeout(function () {
+                        onOff = true;
+                    }, 30);
+                    var ev = ev || event;
+                    var ex = ev.clientX;
+                    var ey = ev.clientY;                //直接绘制
+                    that.globalObject.CTX.beginPath();
+                    that.globalObject.CTX.moveTo(sx, sy);
+                    that.globalObject.CTX.lineTo(ex, ey);
+                    that.globalObject.CTX.closePath();
+                    that.globalObject.CTX.strokeStyle = that.globalObject.COLOR;
+                    that.globalObject.CTX.lineJoin = 'round';
+                    that.globalObject.CTX.lineCap = 'round';
+                    that.globalObject.CTX.lineWidth = that.globalObject.LINE;
+                    that.globalObject.CTX.stroke();
+                    sx = ex;
+                    sy = ey;
+                };
+                document.onmouseup = function (ev) {
+                    document.onmousemove = null;
+                    if (ev.target === document.getElementById('canvas')) {
+                        that.saveImg(new Date().getTime() + '.png') // 写完一笔保存一张图片
+                    }
+                };
+                return false;
+            };
+        },
+
+        //保存图像    2018-09-20更新
+        saveImg: (filename) => {
+            let canvas = document.getElementById('canvas');
+            let MIME_TYPE = 'image/png';
+            let imgURL = canvas.toDataURL(MIME_TYPE);
+            let aElement = document.createElement('a');
+            aElement.download = filename;
+            aElement.href = imgURL;
+            aElement.dataset.downloadurl = [MIME_TYPE, aElement.download, aElement.href].join(':');
+            document.body.appendChild(aElement);
+            aElement.click();
+            document.body.removeChild(aElement);
+        }
+    };
+    drawBoard.init();
+    </script>
+</body>
+</html>
