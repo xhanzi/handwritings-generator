@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>AI训练数据生成器</title>
@@ -10,27 +10,15 @@
         overflow: hidden;
     }
     #canvas {
-        display: none;
         width: 500px;
         height: 500px;
-        border: 1px solid #000;
-    }
-    #canvas .t {
-	position: relative;
-	border: 1px dotted #CCC;
-	width: 250px;
-	height: 250px;
-    }
-    #canvas .b {
+        border: 1px solid #999;
+        background-color: wheat;
     }
     </style>
 </head>
 <body>
-    <!-- 全屏画布 -->
-    <canvas id="canvas">
-        <span class="t"></span>
-        <span class="b"></span>
-    </canvas>
+    <canvas id="canvas"></canvas>
     <script type="text/javascript">
     //画板对象
     var drawBoard = {
