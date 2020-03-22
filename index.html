@@ -19,14 +19,14 @@
 </head>
 <body>
     <canvas id="canvas"></canvas>
-    <div class="config-text" onclick="setText()">设置文字</div>
+    <!--div class="config-text" onclick="setText()">设置文字</div-->
 
     <script type="text/javascript">
-    function setText() {
+    /*function setText() {
         let text = prompt('输入一个汉字', '');
         drawBoard.init();
         drawBoard.drawText(text);
-    }
+    }*/
 
     //画板对象
     var drawBoard = {
@@ -77,12 +77,12 @@
         },
 
         // 绘文本功能
-        drawText: function(text) {
+        /*drawText: function(text) {
             ctx = this.globalObject.CTX;
             ctx.fillStyle = '#EEE';
             ctx.font = '360px Kaiti, Kaiti SC';
             ctx.fillText(text, 15, 320);
-        },
+        },*/
 
         // 手写功能
         draw: function () {
