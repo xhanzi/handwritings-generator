@@ -34,7 +34,7 @@
         globalObject: {
             CTX: null,
             COLOR: '#333',
-            SIZE: 400,
+            SIZE: 500,
             BRUSH: 10
         },
 
@@ -85,12 +85,12 @@
         // 手写功能
         draw: function () {
             var that = this;
-            document.onmousedown = function (ev) {
+            document.ontouchstart = function (ev) {
                 var ev = ev || event;
                 var sx = ev.clientX;
                 var sy = ev.clientY;
                 var onOff = true;
-                document.onmousemove = function (ev) {
+                document.ontouchmove = function (ev) {
                     if (!onOff) return;
                     onOff = false;
                     // 每30ms取一个点
@@ -112,7 +112,7 @@
                     sx = ex;
                     sy = ey;
                 };
-                document.onmouseup = function (ev) {
+                document.ontouchend = function (ev) {
                     document.onmousemove = null;
                     if (ev.target === document.getElementById('canvas')) {
                         that.saveImage(new Date().getTime() + '.png') // 写完一笔保存一张图片
