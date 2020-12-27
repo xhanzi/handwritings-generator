@@ -85,18 +85,15 @@
         // 手写功能
         draw: function () {
             var that = this;
-            document.onmousedown = function (ev) {
+            document.onpointerdown = function (ev) {
                 var ev = ev || event;
                 var sx = ev.clientX;
                 var sy = ev.clientY;
                 var onOff = true;
-                document.onmousemove = function (ev) {
+                document.onpointermove = function (ev) {
                     if (!onOff) return;
                     onOff = false;
-                    // 每30ms取一个点
-                    setTimeout(function () {
-                        onOff = true;
-                    }, 30);
+                    setTimeout(function () { onOff = true; }, 30);  // 每30ms取一个点
                     var ev = ev || event;
                     var ex = ev.clientX;
                     var ey = ev.clientY;                //直接绘制
@@ -112,8 +109,8 @@
                     sx = ex;
                     sy = ey;
                 };
-                document.onmouseup = function (ev) {
-                    document.onmousemove = null;
+                document.onpointerup = function (ev) {
+                    document.onpointermove = null;
                     if (ev.target === document.getElementById('canvas')) {
                         that.saveImage(new Date().getTime() + '.png') // 写完一笔保存一张图片
                     }
