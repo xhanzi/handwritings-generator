@@ -1,139 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>AI训练数据生成器</title>
-    <style type="text/css">
-    body {
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
-    #canvas {
-        border: 1px solid #999;
-    }
-    .config-text {
-        cursor: pointer;
-    }
-    </style>
-</head>
-<body>
-    <canvas id="canvas"></canvas>
-    <!--div class="config-text" onclick="setText()">设置文字</div-->
-
-    <script type="text/javascript">
-    /*function setText() {
-        let text = prompt('输入一个汉字', '');
-        drawBoard.init();
-        drawBoard.drawText(text);
-    }*/
-
-    //画板对象
-    var drawBoard = {
-        //定义全局变量
-        globalObject: {
-            CTX: null,
-            COLOR: '#333',
-            SIZE: 400,
-            BRUSH: 10
-        },
-
-        //初始化
-        init: function () {
-            // 显示画板
-            this.initCanvas();
-            // 手写功能
-            this.draw();
-        },
-
-        //显示画板
-        initCanvas: function () {
-            var that = this;
-            var size = that.globalObject.SIZE;
-            var canvas = document.getElementById('canvas');
-            var ctx = canvas.getContext('2d');
-            this.globalObject.CTX = ctx;
-            canvas.width = size;
-            canvas.height = size;
-            // 首先清空原先的内容
-            ctx.clearRect(0, 0, size, size);
-            // 设置背景虚线
-            this.drawDashLine(ctx, 0, size / 2, size, size / 2);
-            this.drawDashLine(ctx, size / 2, 0, size / 2, size);
-        },
-
-        // 画虚线功能
-        drawDashLine: function(ctx, x0, y0, x1, y1) {
-            ctx.beginPath();
-            ctx.lineWidth = 1;
-            ctx.setLineDash([7, 7]);
-            ctx.moveTo(x0, y0);
-            ctx.lineTo(x1, y1);
-            ctx.strokeStyle = '#CCC';
-            ctx.stroke();
-            ctx.closePath();
-        },
-
-        // 绘文本功能
-        /*drawText: function(text) {
-            ctx = this.globalObject.CTX;
-            ctx.fillStyle = '#EEE';
-            ctx.font = '360px Kaiti, Kaiti SC';
-            ctx.fillText(text, 15, 320);
-        },*/
-
-        // 手写功能
-        draw: function () {
-            var that = this;
-            document.onpointerdown = function (ev) {
-                var ev = ev || event;
-                var sx = ev.clientX;
-                var sy = ev.clientY;
-                var onOff = true;
-                document.onpointermove = function (ev) {
-                    if (!onOff) return;
-                    onOff = false;
-                    setTimeout(function () { onOff = true; }, 30);  // 每30ms取一个点
-                    var ev = ev || event;
-                    var ex = ev.clientX;
-                    var ey = ev.clientY;                //直接绘制
-                    that.globalObject.CTX.beginPath();
-                    that.globalObject.CTX.moveTo(sx, sy);
-                    that.globalObject.CTX.lineTo(ex, ey);
-                    that.globalObject.CTX.closePath();
-                    that.globalObject.CTX.strokeStyle = that.globalObject.COLOR;
-                    that.globalObject.CTX.lineJoin = 'round';
-                    that.globalObject.CTX.lineCap = 'round';
-                    that.globalObject.CTX.lineWidth = that.globalObject.BRUSH;
-                    that.globalObject.CTX.stroke();
-                    sx = ex;
-                    sy = ey;
-                };
-                document.onpointerup = function (ev) {
-                    document.onpointermove = null;
-                    if (ev.target === document.getElementById('canvas')) {
-                        that.saveImage(new Date().getTime() + '.png') // 写完一笔保存一张图片
-                    }
-                };
-                return false;
-            };
-        },
-
-        //保存图像    2018-09-20更新
-        saveImage: function (filename) {
-            let canvas = document.getElementById('canvas');
-            let MIME_TYPE = 'image/png';
-            let imgURL = canvas.toDataURL(MIME_TYPE);
-            let aElement = document.createElement('a');
-            aElement.download = filename;
-            aElement.href = imgURL;
-            aElement.dataset.downloadurl = [MIME_TYPE, aElement.download, aElement.href].join(':');
-            document.body.appendChild(aElement);
-            aElement.click();
-            document.body.removeChild(aElement);
-        }
-    };
-    drawBoard.init();
-    </script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>AI手写数据生成器</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script>
+    (function(defaultFontSize, defaultScreenWidth) {
+      var htmlNode = document.getElementsByTagName('html')[0];
+      function resize() {
+        var screenWidth = document.body.offsetWidth;
+        var fontSize = (screenWidth / defaultScreenWidth) * defaultFontSize;
+        htmlNode.style.fontSize = fontSize + 'px';
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        resize();
+      });
+      window.addEventListener('resize', resize);
+    })(10, 375);
+  </script>
 </html>
