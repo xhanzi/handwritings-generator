@@ -99,14 +99,19 @@ function Draw(canvas, config = {}) {
   if (isMobile) {
     canvas.addEventListener('touchstart', start);
     canvas.addEventListener('touchmove', optimizedMove);
-    canvas.addEventListener('touchend', () => { pressed = false; });
   } else {
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', optimizedMove);
-    ['mouseup', 'mouseleave'].forEach((event) => {
-      canvas.addEventListener(event, () => { pressed = false; });
-    });
   }
+  ['touchend', 'mouseup'].forEach((event) => {
+    canvas.addEventListener(event, () => { pressed = false; });
+    info = document.getElementById('info');
+    this.upload(
+      this.dataURLtoBlob(this.getPNGImage()),
+      '/api/upload',
+      (response) => { info.innerText = response; },
+      (error) => { info.innerText = error; });
+  });
 }
 
 Draw.prototype = {
