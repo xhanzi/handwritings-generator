@@ -172,7 +172,7 @@ Draw.prototype = {
         inf.innerText = `upload img error: ${e}`;
       }
     };
-    //xhr.withCredentials = false;
+    // xhr.withCredentials = false;
     xhr.send(formData);
     btn.innerText = '上传';
     btn.style.pointerEvents = 'all'; // 启用按钮
