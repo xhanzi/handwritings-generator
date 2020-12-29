@@ -105,7 +105,7 @@ function Draw(canvas, config = {}) {
   }
   ['touchend', 'mouseup'].forEach((event) => {
     canvas.addEventListener(event, () => { pressed = false; });
-    info = document.getElementById('info');
+    const info = document.getElementById('info');
     this.upload(
       this.dataURLtoBlob(this.getPNGImage()),
       '/api/upload',
