@@ -162,15 +162,14 @@ Draw.prototype = {
         success(xhr.responseText);
         inf.innerText = xhr.responseText;
       } else {
-        failure();
         inf.innerText = '上传失败';
+        failure();
       }
     };
     xhr.onerror = (e) => {
+      inf.innerText = `upload img error: ${e}`;
       if (typeof failure === 'function') {
         failure(e);
-      } else {
-        inf.innerText = `upload img error: ${e}`;
       }
     };
     xhr.send(formData);
