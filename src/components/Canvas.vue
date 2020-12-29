@@ -61,7 +61,7 @@ export default {
       btn.innerText = '上传中……';
       const image = this.draw.getPNGImage();
       const blob = this.draw.dataURLtoBlob(image);
-      const url = 'http://127.0.0.1:8090/api/upload';
+      const url = '/api/upload';
       const info = document.getElementById('info');
       const successCallback = (response) => {
         info.innerText = response;
