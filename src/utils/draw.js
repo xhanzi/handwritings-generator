@@ -112,8 +112,9 @@ function Draw(canvas, config = {}) {
         this.dataURLtoBlob(this.getPNGImage()),
         '/api/upload',
         (response) => { info.innerText = response; },
-        (error) => { info.innerText = error; });
-      });
+        (error) => { info.innerText = error; }
+      );
+    });
   });
 }
 
