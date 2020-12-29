@@ -67,7 +67,7 @@ export default {
         info.innerText = response;
       };
       const failureCallback = (error) => {
-        info.innerText = 'Error: ' + error;
+        info.innerText = error;
       };
       this.draw.upload(blob, url, successCallback, failureCallback);
       btn.style.pointerEvents = 'all';
