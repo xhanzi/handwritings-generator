@@ -3,8 +3,6 @@
     <canvas></canvas>
     <div class="greet">
       <a @touchstart="clear" @mousedown="clear" id="clear">清屏</a>
-      <a @touchstart="download" @mousedown="download" id="download">下载</a>
-      <a @touchstart="upload" @mousedown="upload" id="upload">上传</a>
       <div id="info"></div>
     </div>
   </div>
@@ -51,27 +49,6 @@ export default {
     },
     clear() {
       this.draw.clear();
-    },
-    download() {
-      this.draw.downloadPNGImage(this.draw.getPNGImage());
-    },
-    upload() {
-      const btn = document.getElementById('upload');
-      btn.style.pointerEvents = 'none';
-      btn.innerText = '上传中……';
-      const image = this.draw.getPNGImage();
-      const blob = this.draw.dataURLtoBlob(image);
-      const url = '/api/upload';
-      const info = document.getElementById('info');
-      const successCallback = (response) => {
-        info.innerText = response;
-      };
-      const failureCallback = (error) => {
-        info.innerText = error;
-      };
-      this.draw.upload(blob, url, successCallback, failureCallback);
-      btn.style.pointerEvents = 'all';
-      btn.innerText = '上传';
     },
   },
 };
