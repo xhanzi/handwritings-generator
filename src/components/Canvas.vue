@@ -56,16 +56,22 @@ export default {
       this.draw.downloadPNGImage(this.draw.getPNGImage());
     },
     upload() {
+      const btn = document.getElementById('upload');
+      btn.style.pointerEvents = 'none';
+      btn.innerText = '上传中……';
       const image = this.draw.getPNGImage();
       const blob = this.draw.dataURLtoBlob(image);
       const url = 'http://127.0.0.1:8090/api/upload';
+      const info = document.getElementById('info');
       const successCallback = (response) => {
-        console.log(response);
+        info.innerText = response;
       };
       const failureCallback = (error) => {
-        console.log(error);
+        info.innerText = 'Error: ' + error;
       };
       this.draw.upload(blob, url, successCallback, failureCallback);
+      btn.style.pointerEvents = 'all';
+      btn.innerText = '上传';
     },
   },
 };

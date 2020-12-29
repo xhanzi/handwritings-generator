@@ -148,10 +148,6 @@ Draw.prototype = {
     this.context.clearRect(0, 0, this.width, this.height);
   },
   upload(blob, url, success, failure) {
-    const btn = document.getElementById('upload');
-    const inf = document.getElementById('info');
-    btn.style.pointerEvents = 'none'; // 禁用按钮
-    inf.innerText = '上传中……';
     const formData = new FormData();
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
@@ -160,21 +156,16 @@ Draw.prototype = {
     xhr.onload = () => {
       if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
         success(xhr.responseText);
-        inf.innerText = xhr.responseText;
       } else {
-        inf.innerText = '上传失败';
         failure();
       }
     };
     xhr.onerror = (e) => {
-      inf.innerText = `upload img error: ${e}`;
       if (typeof failure === 'function') {
         failure(e);
       }
     };
     xhr.send(formData);
-    btn.innerText = '上传';
-    btn.style.pointerEvents = 'all'; // 启用按钮
   },
 };
 export default Draw;
