@@ -103,19 +103,17 @@ function Draw(canvas, config = {}) {
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', optimizedMove);
   }
-  console.log(canvas.target);
   ['touchend', 'mouseup'].forEach((event) => { // mouseleave
-    canvas.addEventListener(event, () => {
-      pressed = false;
-      // 这里可以上传图片了 - 为了方便直接操作DOM了
-      this.upload(
-        this.dataURLtoBlob(this.getPNGImage()),
-        '/api/upload',
-        (response) => { document.getElementById('info').innerText = response; },
-        (error) => { document.getElementById('info').innerText = error; });
-    });
+    canvas.addEventListener(event, () => { pressed = false; });
+    // 这里可以上传图片了 - 为了方便直接操作DOM了
+    this.upload(
+      this.dataURLtoBlob(this.getPNGImage()),
+      '/api/upload',
+      (response) => { document.getElementById('info').innerText = response; },
+      (error) => { document.getElementById('info').innerText = error; });
   });
 }
+
 Draw.prototype = {
   scale(width, height, canvas = this.canvas) {
     const w = canvas.width;
