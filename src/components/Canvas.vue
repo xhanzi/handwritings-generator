@@ -58,7 +58,7 @@ export default {
     upload() {
       const image = this.draw.getPNGImage();
       const blob = this.draw.dataURLtoBlob(image);
-      const url = 'http://127.0.0.1:8090/upload';
+      const url = 'http://127.0.0.1:8090/api/upload';
       const successCallback = (response) => {
         console.log(response);
       };
