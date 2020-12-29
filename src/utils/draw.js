@@ -163,6 +163,7 @@ Draw.prototype = {
         inf.innerText = xhr.responseText;
       } else {
         failure();
+        inf.innerText = '上传失败';
       }
     };
     xhr.onerror = (e) => {
@@ -172,7 +173,6 @@ Draw.prototype = {
         inf.innerText = `upload img error: ${e}`;
       }
     };
-    // xhr.withCredentials = false;
     xhr.send(formData);
     btn.innerText = '上传';
     btn.style.pointerEvents = 'all'; // 启用按钮
