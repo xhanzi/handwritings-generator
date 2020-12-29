@@ -101,12 +101,10 @@ function Draw(canvas, config = {}) {
   } else {
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', optimizedMove);
-    ['mouseup', 'mouseleave'].forEach((event) => {
-      canvas.addEventListener(event, () => {
-        pressed = false;
-      });
-    });
   }
+  ['mouseup', 'touchend'].forEach((event) => {
+    canvas.addEventListener(event, () => { pressed = false; });
+  });
 }
 Draw.prototype = {
   scale(width, height, canvas = this.canvas) {
