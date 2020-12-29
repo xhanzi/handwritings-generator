@@ -99,19 +99,14 @@ function Draw(canvas, config = {}) {
   if (isMobile) {
     canvas.addEventListener('touchstart', start);
     canvas.addEventListener('touchmove', optimizedMove);
+    canvas.addEventListener('touchend', (event) => { pressed = false; });
   } else {
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', optimizedMove);
+    ['mouseup', 'mouseleave'].forEach((event) => {
+      canvas.addEventListener(event, () => { pressed = false; });
+    });
   }
-  ['touchend', 'mouseup'].forEach((event) => { // mouseleave
-    canvas.addEventListener(event, () => { pressed = false; });
-    // 这里可以上传图片了
-    // this.upload(
-    //   this.dataURLtoBlob(this.getPNGImage()),
-    //   '/api/upload',
-    //   (response) => { document.getElementById('info').innerText = response; },
-    //   (error) => { document.getElementById('info').innerText = error; });
-  });
 }
 
 Draw.prototype = {
