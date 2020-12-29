@@ -99,7 +99,7 @@ function Draw(canvas, config = {}) {
   if (isMobile) {
     canvas.addEventListener('touchstart', start);
     canvas.addEventListener('touchmove', optimizedMove);
-    canvas.addEventListener('touchend', (event) => { pressed = false; });
+    canvas.addEventListener('touchend', () => { pressed = false; });
   } else {
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', optimizedMove);
