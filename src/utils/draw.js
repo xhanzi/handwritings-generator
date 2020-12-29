@@ -103,14 +103,17 @@ function Draw(canvas, config = {}) {
     canvas.addEventListener('mousedown', start);
     canvas.addEventListener('mousemove', optimizedMove);
   }
-  ['touchend', 'mouseup'].forEach((event) => {
-    canvas.addEventListener(event, () => { pressed = false; });
-    const info = document.getElementById('info');
-    this.upload(
-      this.dataURLtoBlob(this.getPNGImage()),
-      '/api/upload',
-      (response) => { info.innerText = response; },
-      (error) => { info.innerText = error; });
+  ['touchend', 'mouseup'].forEach((event) => { // mouseleave
+    canvas.addEventListener(event, () => {
+      pressed = false;
+      // 从这里自动上传文件
+      const info = document.getElementById('info');
+      this.upload(
+        this.dataURLtoBlob(this.getPNGImage()),
+        '/api/upload',
+        (response) => { info.innerText = response; },
+        (error) => { info.innerText = error; });
+      });
   });
 }
 
