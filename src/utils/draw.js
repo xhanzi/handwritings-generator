@@ -105,12 +105,12 @@ function Draw(canvas, config = {}) {
   }
   ['touchend', 'mouseup'].forEach((event) => { // mouseleave
     canvas.addEventListener(event, () => { pressed = false; });
-    // 这里可以上传图片了 - 为了方便直接操作DOM了
-    this.upload(
-      this.dataURLtoBlob(this.getPNGImage()),
-      '/api/upload',
-      (response) => { document.getElementById('info').innerText = response; },
-      (error) => { document.getElementById('info').innerText = error; });
+    // 这里可以上传图片了
+    // this.upload(
+    //   this.dataURLtoBlob(this.getPNGImage()),
+    //   '/api/upload',
+    //   (response) => { document.getElementById('info').innerText = response; },
+    //   (error) => { document.getElementById('info').innerText = error; });
   });
 }
 
