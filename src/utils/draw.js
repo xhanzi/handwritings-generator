@@ -1,4 +1,5 @@
 function drawDash(ctx, x0, y0, x1, y1) {
+  // 初始化虚线效果
   ctx.beginPath();
   ctx.lineWidth = 1;
   ctx.setLineDash([7, 7]);
@@ -7,6 +8,13 @@ function drawDash(ctx, x0, y0, x1, y1) {
   ctx.strokeStyle = '#CCC';
   ctx.stroke();
   ctx.closePath();
+
+  // 初始化手写效果
+  ctx.setLineDash([]);
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = 'black';
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
 }
 
 function Draw(canvas, config = {}) {
@@ -46,11 +54,6 @@ function Draw(canvas, config = {}) {
   drawDash(context, 0, this.height / 2, this.width, this.height / 2);
   drawDash(context, this.width / 2, 0, this.width / 2, this.height);
 
-  context.setLineDash([]);
-  context.lineWidth = 6;
-  context.strokeStyle = 'black';
-  context.lineCap = 'round';
-  context.lineJoin = 'round';
   Object.assign(context, config);
 
   const { left, top } = canvas.getBoundingClientRect();
