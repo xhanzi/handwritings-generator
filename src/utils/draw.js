@@ -156,6 +156,9 @@ Draw.prototype = {
   },
   clear() {
     this.context.clearRect(0, 0, this.width, this.height);
+    // 画虚线
+    drawDash(this.context, 0, this.height / 2, this.width, this.height / 2);
+    drawDash(this.context, this.width / 2, 0, this.width / 2, this.height);
   },
   upload(blob, url, success, failure) {
     const formData = new FormData();
